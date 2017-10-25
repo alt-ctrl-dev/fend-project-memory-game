@@ -49,18 +49,40 @@ function resetCard(){
     var cards = $("li.card");
     for(var i =0; i<cards.length;i++){
         $(cards[i]).children(".fa").removeClass(function(index, className) {
-            console.log(index+" "+className)
             //return $( this ).prev().attr( "class" );
             $( this ).removeClass(className);
             $( this ).addClass("fa");
           })
 
-          $(cards[i]).removeClass("show")
-          $(cards[i]).removeClass("open")
+          $(cards[i]).removeClass("match").removeClass("matchfail").removeClass("show").removeClass("open");
     }
 }
 
+/**
+* @description check the status of the game
+*/
+function checkGame(){
+    var open_cards = $("li.card.open.show");
+    if(open_cards.length==2){
+        var openCardClass = $(open_cards[0]).children(".fa").attr('class').replace("fa", "").trim();
+        if($(open_cards[1]).children(".fa").hasClass(openCardClass)){
+            $(open_cards[0]).removeClass("matchfail").removeClass("show").removeClass("open").addClass("match");
+            $(open_cards[1]).removeClass("matchfail").removeClass("show").removeClass("open").addClass("match");
+        }
+        else{
+            $(open_cards[0]).addClass("matchfail");
+            $(open_cards[1]).addClass("matchfail");
+            setTimeout(()=>{
+                $(open_cards[0]).removeClass("matchfail").removeClass("show").removeClass("open");
+                $(open_cards[1]).removeClass("matchfail").removeClass("show").removeClass("open");
+            },350);
+        }
+    }
+}
 
+/**
+* @description jQuery document ready function
+*/
 $(()=>{
     $("ul.deck").hide();
     $(".restart").click((e)=>{
@@ -69,17 +91,22 @@ $(()=>{
         initialize();
         setTimeout(()=>{
             $("ul.deck").slideDown(1000);
-        },1000)
-    })
+        },1000);
+    });
 
+    //Wiring click on tile to open/close tile
     $("li.card").click((e)=>{
-        $(e.target).toggleClass("show").toggleClass("open")
-    })
+        if($(e.target).hasClass("match"))return;
+        $(e.target).toggleClass("show").toggleClass("open");
+        checkGame();
+    });
 
+    //Wiring click on tile icon to open/close tile
     $("li.card>i.fa").click((e)=>{
-        $(e.target).parent().toggleClass("show").toggleClass("open")
-    })
-
+        if($(e.target).parent().hasClass("match"))return;
+        $(e.target).parent().toggleClass("show").toggleClass("open");
+        checkGame();
+    });
 });
 
 /*
