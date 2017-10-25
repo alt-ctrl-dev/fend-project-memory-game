@@ -1,3 +1,6 @@
+//Variables
+var moves=0;
+var moveText,starsUI;
 /*
  * Create an array of card faces
  */
@@ -26,12 +29,14 @@ function shuffle(array) {
 * @description Initialized the game
 */
 function initialize(){
+    moves = 0;
     resetCard();
     var shuffledArray = shuffle(lookup);
     var cards = $("li.card");
     shuffledArray.forEach((value,index)=>{
         $(cards[index]).children(".fa").addClass(value);
     }, this);
+    moveText.text(moves);
 
 }
 
@@ -70,13 +75,25 @@ function checkGame(){
                 $(open_cards[1]).removeClass("matchfail").removeClass("show").removeClass("open");
             },350);
         }
+        moves++;
     }
+    updateUI();
+}
+
+/**
+* @description Updates all UI Elements
+*/
+function updateUI(){
+    moveText.text(moves);
+    //starsUI.children().first().detach();
 }
 
 /**
 * @description jQuery document ready function
 */
 $(()=>{
+    moveText = $("span.moves");
+    //starsUI = $("ul.stars");
     $("ul.deck").hide();
     $(".restart").click((e)=>{
         $("ul.deck").hide();
