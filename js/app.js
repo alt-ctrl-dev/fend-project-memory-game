@@ -90,14 +90,14 @@ $(()=>{
     //Wiring click on tile to open/close tile
     $("li.card").click((e)=>{
         //if($(e.target).hasClass("match") || $(e.target).hasClass("open"))e.preventDefault();
-        $(e.target).addClass("show").addClass("open");
+        $(e.currentTarget).addClass("show").addClass("open");
         checkGame();
     });
 
-    //Wiring click on tile icon to open/close tile
-    $("li.card>i.fa").click((e)=>{
-        //if($(e.target).parent().hasClass("match") || $(e.target).parent().hasClass("open"))e.preventDefault();
-        $(e.target).parent().addClass("show").addClass("open");
-        checkGame();
-    });
+    // //Wiring click on tile icon to open/close tile
+    // $("li.card>i.fa").click((e)=>{
+    //     //if($(e.target).parent().hasClass("match") || $(e.target).parent().hasClass("open"))e.preventDefault();
+    //     $(e.target).parent().addClass("show").addClass("open");
+    //     checkGame();
+    // });
 });
