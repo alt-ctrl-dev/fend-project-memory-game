@@ -44,7 +44,10 @@ function initialize() {
     moveText.text(moves);
 
     if(myTimer) clearInterval(myTimer);
-    myTimer = setInterval(timer_Tick, 1000);
+
+    setTimeout(()=>{
+        myTimer = setInterval(timer_Tick, 1000);
+    },1000)
 }
 
 /**
