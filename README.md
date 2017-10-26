@@ -1,20 +1,16 @@
 # Memory Game Project
 
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
-
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+The Memory Game Project is all about demonstrating my mastery of HTML, CSS, and JavaScript. It is built using jQuery, HTML5 and CSS3.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Game
+- The game has a timer to indicate how much time has elapsed.
+- There is a moves counter to show you how many moves you've made.
+- The stars rating shows you how good you are.
+   - 3 stars = 12 moves or less
+   - 2 stars = 18 moves or less
+   - 1 star = 24 moves or less
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+On completing the game, a popup lets you know that you've won.
