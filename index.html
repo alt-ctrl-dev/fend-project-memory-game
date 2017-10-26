@@ -11,7 +11,13 @@
     </head>
 
     <body>
-
+        <div class="popup" style="display:none">
+            <h1>Yay, you won!</h1>
+            <p>You took this long to finish: <span class="time_finish">0</span></p>
+            <p>You you finished the game in <span class="move_finish">0</span> moves</p>
+            <p>Your star rating is <span class="star_finish">0</span></p>
+            <button class="play">Reset?</button>
+        </div>
         <div class="container">
             <header>
                 <h1>Matching Game</h1>
@@ -34,12 +40,13 @@
                 </div>
 
                 <div class="timer">
-                        <i class="fa fa-clock-o "></i><span class="time">00:00</span>
-                    </div>
+                    <i class="fa fa-clock-o "></i>
+                    <span class="time">00:00</span>
+                </div>
 
                 <div class="restart">
-                        <i class="fa fa-repeat"></i>
-                    </div>
+                    <i class="fa fa-repeat"></i>
+                </div>
             </section>
 
             <section class="info-panel">
@@ -47,7 +54,7 @@
                     <i class="fa fa-repeat"></i> to start a new game</p>
             </section>
 
-            <ul class="deck">
+            <ul class="deck" style="display:none">
                 <li class="card">
                     <i class="fa"></i>
                 </li>
