@@ -1,6 +1,7 @@
 //Variables
 var moves, hasPlayed, myTimer, timer;
-var moveText, starsUI, starsUIArray = [], timerUI;
+var moveText, starsUI, starsUIArray = [],
+    timerUI, popup;
 /*
  * Create an array of card faces
  */
@@ -32,7 +33,7 @@ function shuffle(array) {
 function initialize() {
     resetCard();
 
-    timer=0;
+    timer = 0;
     for (var index = 0; index < starsUIArray.length; index++) {
         starsUIArray[index].appendTo(starsUI);
     }
@@ -43,11 +44,11 @@ function initialize() {
     moves = 0;
     moveText.text(moves);
 
-    if(myTimer) clearInterval(myTimer);
+    if (myTimer) clearInterval(myTimer);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         myTimer = setInterval(timer_Tick, 1000);
-    },1000)
+    }, 1000)
 }
 
 /**
@@ -102,7 +103,7 @@ function checkGame() {
 function gameOver() {
     var open_cards = $("li.card.match");
     if (open_cards.length == lookup.length) {
-        if(myTimer) clearInterval(myTimer);
+        if (myTimer) clearInterval(myTimer);
         showModal();
     }
 }
@@ -110,7 +111,24 @@ function gameOver() {
 /**
  * @description show game over dialog
  */
-function showModal(){
+function showModal() {
+    $(".star_finish").text(starsUI.children().length);
+    $(".time_finish").text(timerUI.text());
+    $(".move_finish").text(moves);
+    popup.fadeIn();
+    $(".info-panel").show();
+    $("ul.deck").hide();
+}
+
+/**
+ * @description hides game over dialog
+ */
+function hideModal() {
+    timer=0;
+    timerUI.text(formatSeconds(timer));
+    moves=0;
+    moveText.text(moves);
+    popup.fadeOut();
 }
 
 /**
@@ -145,10 +163,8 @@ function timer_Tick() {
 function formatSeconds(seconds) {
     let secs = seconds % 60;
     let mins = Math.floor(seconds / 60);
-    return ((mins<9?("0"+mins):mins)+":"+(secs<9?("0"+secs):secs))
+    return ((mins < 9 ? ("0" + mins) : mins) + ":" + (secs < 9 ? ("0" + secs) : secs))
 }
-
-
 
 /**
  * @description jQuery document ready function
@@ -157,6 +173,7 @@ $(() => {
     moveText = $("span.moves");
     starsUI = $("ul.stars");
     timerUI = $("span.time");
+    popup = $(".popup");
     $("ul.deck").hide();
     $(".restart").click((e) => {
         $("ul.deck").hide();
@@ -169,8 +186,10 @@ $(() => {
 
     //Wiring click on tile to open/close tile
     $("li.card").click((e) => {
-        if($(e.currentTarget).hasClass("match"))return;
+        if ($(e.currentTarget).hasClass("match")) return;
         $(e.currentTarget).addClass("show").addClass("open");
         checkGame();
     });
+    //Wiring button to show game start
+    $("button.play").click(hideModal);
 });
