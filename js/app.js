@@ -1,5 +1,5 @@
 //Variables
-var moves, hasPlayed, myTimer, timer;
+var moves=0, hasPlayed=false, myTimer, timer=0;
 var moveText, starsUI, starsUIArray = [],
     timerUI, popup;
 /*
@@ -32,18 +32,6 @@ function shuffle(array) {
  */
 function initialize() {
     resetCard();
-
-    timer = 0;
-    for (var index = 0; index < starsUIArray.length; index++) {
-        starsUIArray[index].appendTo(starsUI);
-    }
-    starsUIArray = [];
-
-    hasPlayed = false;
-    timerUI.text("00:00");
-    moves = 0;
-    moveText.text(moves);
-
     if (myTimer) clearInterval(myTimer);
 
     setTimeout(() => {
@@ -124,10 +112,17 @@ function showModal() {
  * @description hides game over dialog
  */
 function hideModal() {
+    for (var index = 0; index < starsUIArray.length; index++) {
+        starsUIArray[index].appendTo(starsUI);
+    }
+    starsUIArray = [];
+
+    hasPlayed = false;
     timer=0;
     timerUI.text(formatSeconds(timer));
-    moves=0;
+    moves = 0;
     moveText.text(moves);
+
     popup.fadeOut();
 }
 
