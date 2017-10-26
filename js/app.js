@@ -1,6 +1,6 @@
 //Variables
-var moves, hasPlayed;
-var moveText, starsUI, starsUIArray = [];
+var moves, hasPlayed, myTimer, timer;
+var moveText, starsUI, starsUIArray = [], timerUI;
 /*
  * Create an array of card faces
  */
@@ -30,20 +30,21 @@ function shuffle(array) {
  * @description Initialized the game
  */
 function initialize() {
+    resetCard();
+
+    timer=0;
     for (var index = 0; index < starsUIArray.length; index++) {
         starsUIArray[index].appendTo(starsUI);
     }
     starsUIArray = [];
-    moves = 0;
+
     hasPlayed = false;
-    resetCard();
-    var shuffledArray = shuffle(lookup);
-    var cards = $("li.card");
-    shuffledArray.forEach((value, index) => {
-        $(cards[index]).children(".fa").addClass(value);
-    }, this);
+    timerUI.text("00:00");
+    moves = 0;
     moveText.text(moves);
 
+    if(myTimer) clearInterval(myTimer);
+    myTimer = setInterval(timer_Tick, 1000);
 }
 
 /**
@@ -60,6 +61,11 @@ function resetCard() {
 
         $(cards[i]).removeClass("match").removeClass("matchfail").removeClass("show").removeClass("open");
     }
+    var shuffledArray = shuffle(lookup);
+    var cards = $("li.card");
+    shuffledArray.forEach((value, index) => {
+        $(cards[index]).children(".fa").addClass(value);
+    }, this);
 }
 
 /**
@@ -103,11 +109,33 @@ function updateUI() {
 }
 
 /**
+ * @description Callback for timer tick
+ */
+function timer_Tick() {
+    timer++;
+    timerUI.text(formatSeconds(timer));
+}
+
+/**
+ * @description Formats a number to MM:SS
+ * @param {numnber} seconds - the number that needs to be formatted
+ * @returns {string} - In the format MM:SS
+ */
+function formatSeconds(seconds) {
+    let secs = seconds % 60;
+    let mins = Math.floor(seconds / 60);
+    return ((mins<9?("0"+mins):mins)+":"+(secs<9?("0"+secs):secs))
+}
+
+
+
+/**
  * @description jQuery document ready function
  */
 $(() => {
     moveText = $("span.moves");
     starsUI = $("ul.stars");
+    timerUI = $("span.time");
     $("ul.deck").hide();
     $(".restart").click((e) => {
         $("ul.deck").hide();
