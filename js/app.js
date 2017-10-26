@@ -90,6 +90,24 @@ function checkGame() {
         hasPlayed = true;
     }
     updateUI();
+    gameOver();
+}
+
+/**
+ * @description action if game over
+ */
+function gameOver() {
+    var open_cards = $("li.card.match");
+    if (open_cards.length == lookup.length) {
+        if(myTimer) clearInterval(myTimer);
+        showModal();
+    }
+}
+
+/**
+ * @description show game over dialog
+ */
+function showModal(){
 }
 
 /**
@@ -152,11 +170,4 @@ $(() => {
         $(e.currentTarget).addClass("show").addClass("open");
         checkGame();
     });
-
-    // //Wiring click on tile icon to open/close tile
-    // $("li.card>i.fa").click((e)=>{
-    //     //if($(e.target).parent().hasClass("match") || $(e.target).parent().hasClass("open"))e.preventDefault();
-    //     $(e.target).parent().addClass("show").addClass("open");
-    //     checkGame();
-    // });
 });
