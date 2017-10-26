@@ -148,7 +148,7 @@ $(() => {
 
     //Wiring click on tile to open/close tile
     $("li.card").click((e) => {
-        //if($(e.target).hasClass("match") || $(e.target).hasClass("open"))e.preventDefault();
+        if($(e.currentTarget).hasClass("match"))return;
         $(e.currentTarget).addClass("show").addClass("open");
         checkGame();
     });
